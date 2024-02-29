@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    networks:
+      - backend
+    
+  web:
+    image: marketingharp/flaskapp
+    ports:
+      - '5000:80'
+    networks:
+      - backend
+  
+# networks:
+#   backend:
+#     name: backend

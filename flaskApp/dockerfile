@@ -1,0 +1,12 @@
+FROM python:3.12-slim
+ADD ./app /app
+WORKDIR /app
+RUN pip3 install -r requirements.txt
+
+ENV FLASK_ENV='production'
+ENV MONGO_HOST='mongo'
+ENV MONGO_PORT='27017'
+ENV PORT='80'
+EXPOSE 80
+
+ENTRYPOINT gunicorn --preload app:app -w 2 --threads 2 -b 0.0.0.0:80
