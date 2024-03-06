@@ -31,5 +31,17 @@ spec:
             - containerPort: 80
           resources: {}
           imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 5001
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 5001
+            initialDelaySeconds: 5
+            periodSeconds: 10
       restartPolicy: Always
 status: {}
