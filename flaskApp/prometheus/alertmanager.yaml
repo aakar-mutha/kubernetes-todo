@@ -1,0 +1,11 @@
+global:
+  slack_api_url: 'https://hooks.slack.com/services/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'
+
+route:
+  group_by: ['alertname', 'severity']
+
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#assignment2slack-am-mj'
+    send_resolved: true
