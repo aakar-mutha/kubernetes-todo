@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,redirect,url_for # For flask implementation
+from flask import Flask, render_template,request,redirect,url_for, jsonify # For flask implementation
 from pymongo import MongoClient # Database connector
 from bson.objectid import ObjectId # For ObjectId to work
 from bson.errors import InvalidId # For catching InvalidId exception for ObjectId
@@ -119,6 +119,27 @@ def search():
 @app.route("/about")
 def about():
 	return render_template('credits.html',t=title,h=heading)
+
+
+# Liveness check: Check if the Flask app is alive
+@app.route("/health/liveness")
+def liveness_check():
+    try:
+        db.command("ping")  # Check MongoDB connection
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'error_message': str(e)}), 500
+	
+
+# Readiness check: Check if the Flask app is ready to receive traffic
+@app.route("/health/readiness")
+def readiness_check():
+    try:
+        db.command("ping")  # Check MongoDB connection
+        return jsonify({'status': 'ok'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'error_message': str(e)}), 500
+
 
 
 def create_app():

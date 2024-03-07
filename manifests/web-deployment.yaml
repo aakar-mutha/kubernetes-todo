@@ -25,11 +25,23 @@ spec:
         io.kompose.service: web
     spec:
       containers:
-        - image: marketingharp/flaskapp
+        - image: marketingharp/flaskapp:v2
           name: web
           ports:
             - containerPort: 80
           resources: {}
           imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
       restartPolicy: Always
 status: {}
