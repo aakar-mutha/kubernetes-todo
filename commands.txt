@@ -1,0 +1,1 @@
+kubectl set image deployments/web web=docker.io/marketingharp/flaskapp:v3
