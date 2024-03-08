@@ -8,12 +8,18 @@ metadata:
   labels:
     io.kompose.service: web
   name: web
+  
 spec:
   replicas: 1
   selector:
     matchLabels:
       io.kompose.service: web
-  strategy: {}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+
   template:
     metadata:
       annotations:
