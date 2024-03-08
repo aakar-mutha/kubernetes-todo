@@ -1,0 +1,11 @@
+global:
+  slack_api_url: ${SLACK_WEBHOOK_URL}
+
+route:
+  group_by: ['alertname', 'severity']
+
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#assignment2slack-am-mj'
+    send_resolved: true
