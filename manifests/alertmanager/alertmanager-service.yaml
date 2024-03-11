@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: alertmanager
 spec:
+  type: LoadBalancer
   selector:
     app: alertmanager
   ports:

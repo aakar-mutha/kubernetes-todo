@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-rules
+data:
+  rules.yml: |
+    groups:
+    - name: web-rules
+      rules:
+        - alert: WebAppHighErrorRate
+          expr: rate(http_requests_total{job="web"}[5m]) > 0.5
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "High error rate in Flask app"
+
+
