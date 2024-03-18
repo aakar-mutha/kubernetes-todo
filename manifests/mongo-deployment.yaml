@@ -1,18 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: ./kompose convert -f docker-compose.yml
-    kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
   labels:
-    io.kompose.service: mongo
+    io.service: mongo
   name: mongo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: mongo
+      io.service: mongo
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -20,13 +16,9 @@ spec:
       maxUnavailable: 1
   template:
     metadata:
-      annotations:
-        kompose.cmd: ./kompose convert -f docker-compose.yml
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
       labels:
-        io.kompose.network/backend: "true"
-        io.kompose.service: mongo
+        io.network/backend: "true"
+        io.service: mongo
     spec:
       volumes:
       - name: mongo-storage
