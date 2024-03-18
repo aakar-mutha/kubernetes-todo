@@ -1,29 +1,13 @@
-# apiVersion: v1
-# kind: Service
-# metadata:
-  # labels:
-  #   io.kompose.service: web
-#   name: web
-# spec:
-#   selector:
-#       io.kompose.service: web
-#   ports:
-#       protocol: TCP
-#       port: 4000
-#       targetPort: 80
-#   type: NodePort
-
-
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    io.kompose.service: web
+    io.service: web
   name: web
 spec:
   type: LoadBalancer
   selector:
-    io.kompose.service: web  # Matches pods with specific labels
+    io.service: web  # Matches pods with specific labels
   ports:
   - protocol: TCP  # or UDP
     port: 5000  # Port exposed externally
