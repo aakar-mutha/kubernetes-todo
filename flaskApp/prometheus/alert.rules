@@ -1,10 +1,19 @@
 groups:
-  - name: flask-rules
+  - name: 'prometheus-rules'
     rules:
-      - alert: FlaskAppHighErrorRate
-        expr: rate(http_requests_total{job="Flask"}[5m]) > 0.5
+      - alert: 'PrometheusHighFailureRate'
+        expr: increase(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"}[10m]) > 5
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High failure rate in Prometheus"
+          description: "Prometheus has been failing to scrape metrics for 10 minutes"
+      - alert: 'WebAppHighErrorRate'
+        expr: rate(http_requests_total{job="web"}[5m]) > 0.5
         for: 1m
         labels:
           severity: critical
         annotations:
           summary: "High error rate in Flask app"
+          description: "The Flask app is experiencing high error rates"
